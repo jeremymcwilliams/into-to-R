@@ -5,23 +5,229 @@ format: html
 editor: visual
 ---
 
-## Quarto
+### Goals of this workshop:
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+-   Gain some familiarity with RStudio Server on posit.cloud
+-   Write some basic R code
+-   Work with a data set
+-   Learn how to render a quarto document
 
-## Running Code
+### RStudio Windows/Panes
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+-   Upper-left: development areas (write code, work on files, etc.)
+
+-   Lower-right: console - where R code is executed
+
+-   Upper-right: Environment - shows existing variables and their values
+
+-   Lower-right: Files & help - organize your files and folders, and read documentation
+
+### Basic R Code
+
+R code can be run in the console, or as a "code chunk" within this R notebook. Below is a code chunk. You can run the code chunk by clicking the green "play" button.
 
 ```{r}
-1 + 1
+
+
+
+
 ```
 
-You can add options to executable code like this
+Throughout this workshop, there will be a mix of code chunks pre-populated with code, and empty code chunks. The empty code chunks give you an opportunity to write code, run it, and see the output. Each of the empty chunks are preceded with "YOUR TURN:".
+
+#### Assigning variables
+
+Creating variables in R isn't so bad. Most scripting languages use the "=" sign, but R uses "\<-". So below, I'm creating a variable x, and setting it equal to 10. Afterward, I entered "x", which should output the value of x:
 
 ```{r}
-#| echo: false
-2 * 2
+# assigns 10 to x
+
+
+# prints x
+
+
+
+
+#Anything preceded by a "#" is a "comment". It does not get executed as code.
+#Comments can be super helpful to provide info on your code.
+
+
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+YOUR TURN: Now try creating a variable "y", set it equal to 7+9, and then print it out:
+
+```{r}
+
+
+```
+
+#### Functions
+
+Like most languages, R has functions that help you quickly execute common tasks. Functions typically take the form of:
+
+functionName(argument1, argument2, etc....)
+
+For example, the function sqrt(number) takes the square root of a number:
+
+```{r}
+
+```
+
+YOUR TURN: In the chunk below, create a variable 'z', set it equal to the square root of 90, and print it out:
+
+```{r}
+
+
+```
+
+One nice thing about RStudio Server is that you can readily access documentation for functions by using the "help" command:
+
+```{r}
+
+```
+
+The documentation appears in the lower right window in the "help" tab.
+
+#### Statistical Functions
+
+Let's start with the "c" function. "c" stands for "combine", and is used to create a one-dimensional array of values (also known as a "vector"). You could also think of this as a column of data from a spreadsheet.
+
+```{r}
+# I polled my coworkers at Watzek Library to see how many pets were in each household:
+watzekPets<-c(1, 1, 2, 3, 2, 0, 1, 1, 1, 0, 0)
+
+#print it out
+watzekPets
+
+
+
+```
+
+Now let's say we want to know the average number of pets owned by Watzek staff. For this, we can use the mean function:
+
+```{r}
+
+
+
+```
+
+We can also determine the standard deviation of our data. Standard Deviation is a measure of how spread apart the measurements are.
+
+```{r}
+
+
+#print it out
+
+```
+
+For comparison's sake, run the code sample below on a data set of measurements that vary much more widely:
+
+```{r}
+
+#pretend dataset of current coins in your pocket of Watzek staff:
+
+watzekCoins<-c(2, 10, 15, 5, 2, 0, 11, 600, 25)
+
+#print average number of coins
+
+
+#print standard deviation of watzekCoins
+
+
+
+
+```
+
+YOUR TURN: In the code chunk below, create an array called myVector, and set it equal to 3, 7, 8.5, 20, 4, 1, and 15. Print out the mean and standard deviation.
+
+```{r}
+
+# define myVector:
+
+
+#print mean:
+
+
+#print standard deviation:
+
+
+
+
+```
+
+### Working with a Data Set
+
+Before working with data, let's quickly talk about packages and libraries in R. While some functions are built in with R (e.g. sqrt), others require users to install packages. A **package** is just a collection of functions, while a **library** is the location of where that package lives.
+
+In R, there's a special package called the "Tidyverse". The Tidyverse is actually a collection of smaller packages that provide functions for reading, filtering, and cleaning data. It also includes "ggplot", which is used heavily for data visualizations. We'll use some of the functions in the Tidyverse, so we need to load them. Run the code chunk below:
+
+```{r}
+library(tidyverse)
+```
+
+R has a number of built-in data sets to let users get some practice. One such data set, `mtcars`, contains data from Motor Trends magazine's 1974 review of automobiles. Below, we can view the data set with the `View()` function, and get more info on it using the `help()` function
+
+```{r}
+View(mtcars)
+
+help(mtcars)
+```
+
+Let's say we're interested in the average fuel economy of all cars, or MPG. Rather than hand type the values from the mpg column into a c() function, we can target that column using the `dataset$column` syntax:
+
+```{r}
+
+allMpg<-mtcars$mpg
+
+allMpg
+
+
+
+```
+
+Now we can use the `mean()` function like before, with `allMpg` variable:
+
+```{r}
+
+
+
+```
+
+```{r}
+
+cleanedHeights<-na.omit(heights)
+
+cleanedHeights
+
+```
+
+Now that the data is cleaned up, we can get the average:
+
+```{r}
+
+avgHeights<-mean(cleanedHeights)
+
+avgHeights
+
+
+```
+
+Now it's your turn. Can you find the mean and standard deviation of the "orb width(cm)" column?
+
+```{r}
+
+# Create a variable that targets a column
+
+
+
+# Strip out NA values if necessary
+
+
+
+
+# Determine/print mean & standard deviation
+
+
+
+
+```
