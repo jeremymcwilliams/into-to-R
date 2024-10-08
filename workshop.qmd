@@ -159,10 +159,19 @@ YOUR TURN: In the code chunk below, create an array called myVector, and set it 
 
 Before working with data, let's quickly talk about packages and libraries in R. While some functions are built in with R (e.g. sqrt), others require users to install packages. A **package** is just a collection of functions, while a **library** is the location of where that package lives.
 
-In R, there's a special package called the "Tidyverse". The Tidyverse is actually a collection of smaller packages that provide functions for reading, filtering, and cleaning data. It also includes "ggplot", which is used heavily for data visualizations. We'll use some of the functions in the Tidyverse, so we need to load them. Run the code chunk below:
+In R, there's a special package called the "Tidyverse". The Tidyverse is actually a collection of smaller packages that provide functions for reading, filtering, and cleaning data. It also includes "ggplot", which is used heavily for data visualizations. We'll use some of the functions in the Tidyverse, so we need to load them. Run the code chunks below:
 
 ```{r}
-library(tidyverse)
+# this downloads the package code into our environment
+# only run this once, then comment it out
+
+install.packages("tidyverse")
+```
+
+```{r}
+# this makes the tidyverse functions available to our current working environment
+# quotes optional here - since we downloaded it, our 
+library("tidyverse")
 ```
 
 R has a number of built-in data sets to let users get some practice. One such data set, `mtcars`, contains data from Motor Trends magazine's 1974 review of automobiles. Below, we can view the data set with the `View()` function, and get more info on it using the `help()` function
@@ -193,39 +202,48 @@ Now we can use the `mean()` function like before, with `allMpg` variable:
 
 ```
 
-```{r}
-
-cleanedHeights<-na.omit(heights)
-
-cleanedHeights
-
-```
-
-Now that the data is cleaned up, we can get the average:
+Now it's your turn. What is the average horsepower of each car in the data set?
 
 ```{r}
 
-avgHeights<-mean(cleanedHeights)
-
-avgHeights
 
 
 ```
 
-Now it's your turn. Can you find the mean and standard deviation of the "orb width(cm)" column?
+### Group by / summarize
+
+While calculating the average of a metric for all cars might be interesting, it may be more interesting to ask more specific questions about the data set. Do cars with automatic or manual transmission have better fuel economy? Is there a difference in horsepower among cars with varying numbers of engine cylinders?
+
+The tidyverse provides a couple of functions that, when used in tandem, can help to see patterns in data for questions like these. Let's look at an example to look at the first question: Do cars with automatic or manual transmission have better fuel economy?
 
 ```{r}
 
-# Create a variable that targets a column
+mpgTransmission<- mtcars |>
+  group_by(am) |>
+  summarize(avgMpg=mean(mpg))
+
+mpgTransmission
 
 
+```
 
-# Strip out NA values if necessary
+There are a few things going on in the example above:
+
+-   First, we define a variable `mpgTransmission`, and start by assigning it to the entire data set `mtcars` . Ultimately, this new variable will become a new summary table, based on data from `mtcars`.
+
+-   Next, we use and R operator called the "pipe": `|>`. It lets you chain functions together, and can be thought of as "AND THEN..."
+
+-   Then, we use the `group_by()` function to split our data into groups. In this case, one group is "0" (automatic), and one group is "1" (manual).
+
+-   We then use another `|>` to chain the next function.
+
+-   Finally, we use `summarize` to define one or more columns in our summary table. In this case, we're creating a column named `avgMpg`, and the values will be `mean(mpg)`, per group.
+
+Now it's your turn. Using the technique above, calculate a summary table to show whether cars of different engine cylinders have different average horsepower.
+
+```{r}
 
 
-
-
-# Determine/print mean & standard deviation
 
 
 
