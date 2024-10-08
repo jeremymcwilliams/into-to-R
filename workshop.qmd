@@ -16,7 +16,7 @@ editor: visual
 
 -   Upper-left: development areas (write code, work on files, etc.)
 
--   Lower-right: console - where R code is executed
+-   Lower-left: console - where R code is executed
 
 -   Upper-right: Environment - shows existing variables and their values
 
@@ -33,7 +33,7 @@ R code can be run in the console, or as a "code chunk" within this R notebook. B
 
 ```
 
-Throughout this workshop, there will be a mix of code chunks pre-populated with code, and empty code chunks. The empty code chunks give you an opportunity to write code, run it, and see the output. Each of the empty chunks are preceded with "YOUR TURN:".
+Throughout this workshop, we'll alternate between demonstrating a topic or concept, and then have space for you to try it on your own.
 
 #### Assigning variables
 
@@ -97,7 +97,7 @@ Let's start with the "c" function. "c" stands for "combine", and is used to crea
 watzekPets<-c(1, 1, 2, 3, 2, 0, 1, 1, 1, 0, 0)
 
 #print it out
-watzekPets
+
 
 
 
@@ -165,7 +165,8 @@ In R, there's a special package called the "Tidyverse". The Tidyverse is actuall
 # this downloads the package code into our environment
 # only run this once, then comment it out
 
-install.packages("tidyverse")
+#install.packages("tidyverse")
+
 ```
 
 ```{r}
@@ -177,18 +178,14 @@ library("tidyverse")
 R has a number of built-in data sets to let users get some practice. One such data set, `mtcars`, contains data from Motor Trends magazine's 1974 review of automobiles. Below, we can view the data set with the `View()` function, and get more info on it using the `help()` function
 
 ```{r}
-View(mtcars)
 
-help(mtcars)
 ```
 
 Let's say we're interested in the average fuel economy of all cars, or MPG. Rather than hand type the values from the mpg column into a c() function, we can target that column using the `dataset$column` syntax:
 
 ```{r}
 
-allMpg<-mtcars$mpg
 
-allMpg
 
 
 
@@ -218,11 +215,7 @@ The tidyverse provides a couple of functions that, when used in tandem, can help
 
 ```{r}
 
-mpgTransmission<- mtcars |>
-  group_by(am) |>
-  summarize(avgMpg=mean(mpg))
 
-mpgTransmission
 
 
 ```
@@ -249,3 +242,7 @@ Now it's your turn. Using the technique above, calculate a summary table to show
 
 
 ```
+
+### Quarto rendering
+
+We can transform this file into a deliverable output (e.g. web page, pdf, word doc, etc.). The output is defined at the very top of this document (`format: html`). Click the Render button in the menu bar to start the process. If you run into errors, check the console for specifics on how to fix it, edit your doc, and try again.

@@ -2,3 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+
+project.Rproj
+workshop.html
+workshop_files/*
